@@ -1,0 +1,29 @@
+{
+    "name": "mikeyp/veelo-api-client",
+    "type": "library",
+    "description": "Webservice client for Veelo Inc API.",
+    "keywords": [
+        "rest",
+        "web service",
+        "client",
+        "veelo"
+    ],
+    "homepage": "https://github.com/mikeyp/veelo-api-client",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Michael Prasuhn",
+            "email": "mike@mikeyp.net",
+            "homepage": "https://mikeyp.net"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle-services": "^1.1",
+        "gimler/guzzle-description-loader": "^0.0.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "VeeloApi\\": "src/"
+        }
+    }
+}
