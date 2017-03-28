@@ -181,7 +181,7 @@ operations:
   createTagCategory:
     httpMethod: POST
     uri: /api/manager/v2/tag-categories/
-    summary: Create a new Tag Category.
+    summary: Create a new tag category.
     responseModel: BaseResponse
     parameters:
       name:
@@ -195,7 +195,7 @@ operations:
   getTagCategory:
     httpMethod: GET
     uri: /api/manager/v2/tag-categories/{category_id}
-    summary: Get a Tag Category.
+    summary: Get a tag category.
     responseModel: BaseResponse
     parameters:
       category_id:
@@ -205,7 +205,7 @@ operations:
   updateTagCategory:
     httpMethod: PUT
     uri: /api/manager/v2/tag-categories/{category_id}
-    summary: Update a Tag Category.
+    summary: Update a tag category.
     responseModel: BaseResponse
     parameters:
       category_id:
@@ -223,14 +223,89 @@ operations:
   deleteTagCategory:
     httpMethod: DELETE
     uri: /api/manager/v2/tag-categories/{category_id}
-    summary: Delete a Tag Category.
+    summary: Delete a tag category.
     responseModel: BaseResponse
     parameters:
       category_id:
         type: string
         location: uri
         required: true
-
+  listTags:
+    httpMethod: GET
+    uri: /api/manager/v2/tag-categories/{category_id}/tags
+    summary: Get all tags in a tag category.
+    responseModel: PaginatedResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+  createTag:
+    httpMethod: POST
+    uri: /api/manager/v2/tag-categories/{category_id}/tags
+    summary: Create a new tag in a tag category.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+      name:
+        type: string
+        location: json
+        required: true
+      customer_identifier:
+        type: string
+        location: json
+  getTag:
+    httpMethod: GET
+    uri: /api/manager/v2/tag-categories/{category_id}/tags/{tag_id}
+    summary: Get a tag.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+      tag_id:
+        type: string
+        location: uri
+        required: true
+  updateTag:
+    httpMethod: PUT
+    uri: /api/manager/v2/tag-categories/{category_id}/tags/{tag_id}
+    summary: Update a tag.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+      tag_id:
+        type: string
+        location: uri
+        required: true
+      name:
+        type: string
+        location: json
+        required: true
+      customer_identifier:
+        type: string
+        location: json
+  deleteTag:
+    httpMethod: DELETE
+    uri: /api/manager/v2/tag-categories/{category_id}/tags/{tag_id}
+    summary: Delete a tag.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+      tag_id:
+        type: string
+        location: uri
+        required: true
 models:
   BaseResponse:
     type: object
