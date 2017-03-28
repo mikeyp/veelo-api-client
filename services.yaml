@@ -1,0 +1,318 @@
+name: Veelo API Client
+apiVersion: 2017-03-24
+baseUrl: https://home.veeloapp.com/
+description: Guzzle based PHP client for Veelo API.
+operations:
+  generateToken:
+    httpMethod: POST
+    uri: /api/user/v2/token-auth
+    summary: Returns token for authorizing requests to the API.
+    responseModel: BaseResponse
+    parameters:
+      identification:
+        location: json
+        type: string
+        required: true
+      password:
+        location: json
+        type: string
+        required: true
+  refreshToken:
+    httpMethod: POST
+    uri: /api/user/v2/token-auth
+    summary: Returns a refreshed token for authorizing requests to the API.
+    responseModel: BaseResponse
+  listAdminGroups:
+    httpMethod: GET
+    uri: /api/manager/v2/admingroups/toplevel/?tags=true
+    summary: Returns a nested list of AdminGroups.
+    responseModel: AdminGroupsResponse
+  listCircles:
+    httpMethod: GET
+    uri: /api/manager/v2/admingroups/{admingroup_id}/circles/current
+    summary: Return a list of circles within an admin group.
+    responseModel: CirclesResponse
+    parameters:
+      admingroup_id:
+        location: uri
+        type: string
+        required: true
+  uploadFile:
+    httpMethod: POST
+    uri: /api/manager/v2/admingroups/{admingroup_id}/files/direct
+    summary: Upload a file.
+    responseModel: BaseResponse
+    parameters:
+      admingroup_id:
+        location: uri
+        type: string
+        required: true
+      file:
+        location: multipart
+        type: any
+        required: true
+  replaceFile:
+    httpMethod: PUT
+    uri: /api/manager/v2/files/{file_id}
+    summary: Upload a new version of a file.
+    responseModel: BaseResponse
+    parameters:
+      file_id:
+        location: uri
+        type: string
+        required: true
+      file:
+        location: multipart
+        type: any
+        required: true
+  updateFile:
+    httpMethod: PUT
+    uri: /api/manager/v2/files/{file_id}
+    summary: Update file properties.
+    responseModel: BaseResponse
+    parameters:
+      file_id:
+        location: uri
+        type: string
+        required: true
+      confidential:
+        location: json
+        type: boolean
+        default: true
+      name:
+        location: json
+        type: string
+      filename:
+        location: json
+        type: string
+      state:
+        location: json
+        type: string
+        default: Active
+  addFilesToGroup:
+    httpMethod: POST
+    uri: /api/manager/v2/admingroups/{admingroup_id}/files/
+    summary: Add files to an admin group.
+    responseModel: BaseResponse
+    parameters:
+      admingroup_id:
+        location: uri
+        type: string
+        required: true
+      objects:
+        location: json
+        type: array
+        reqruied: true
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              required: true
+  removeFilesFromGroup:
+    httpMethod: DELETE
+    uri: /api/manager/v2/admingroups/{admingroup_id}/files/
+    summary: Remove files from an admin group.
+    responseModel: BaseResponse
+    parameters:
+      admingroup_id:
+        location: uri
+        type: string
+        required: true
+      objects:
+        location: json
+        type: array
+        reqruied: true
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              required: true
+  addFilesToCircle:
+    httpMethod: POST
+    uri: /api/manager/v2/circles/{circle_id}/files/
+    summary: Add files to a circle.
+    responseModel: BaseResponse
+    parameters:
+      circle_id:
+        location: uri
+        type: string
+        required: true
+      objects:
+        location: json
+        type: array
+        reqruied: true
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              required: true
+  removeFilesFromCircle:
+    httpMethod: DELETE
+    uri: /api/manager/v2/circles/{circle_id}/files/
+    summary: Remove files from a circle.
+    responseModel: BaseResponse
+    parameters:
+      circle_id:
+        location: uri
+        type: string
+        required: true
+      objects:
+        location: json
+        type: array
+        reqruied: true
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              required: true
+  listTagCategories:
+    httpMethod: GET
+    uri: /api/manager/v2/tag-categories
+    summary:  List tag categories.
+    responseModel: PaginatedResponse
+    parameters:
+      is_relevance:
+        location: query
+        type: string
+  createTagCategory:
+    httpMethod: POST
+    uri: /api/manager/v2/tag-categories/
+    summary: Create a new Tag Category.
+    responseModel: BaseResponse
+    parameters:
+      name:
+        type: string
+        location: json
+        required: true
+      is_relevance:
+        type: boolean
+        location: json
+        default: false
+  getTagCategory:
+    httpMethod: GET
+    uri: /api/manager/v2/tag-categories/{category_id}
+    summary: Get a Tag Category.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+  updateTagCategory:
+    httpMethod: PUT
+    uri: /api/manager/v2/tag-categories/{category_id}
+    summary: Update a Tag Category.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+      name:
+        type: string
+        location: json
+        required: true
+      is_relevance:
+        type: boolean
+        location: json
+        default: false
+  deleteTagCategory:
+    httpMethod: DELETE
+    uri: /api/manager/v2/tag-categories/{category_id}
+    summary: Delete a Tag Category.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+
+models:
+  BaseResponse:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        items:
+          type: string
+    additionalProperties:
+      location: json
+  PaginatedResponse:
+    type: object
+    extends: BaseResponse
+    properties:
+      object_count:
+        type: integer
+      page_count:
+        type: integer
+      page:
+        type: integer
+    additionalProperties:
+      location: json
+  AdminGroupsResponse:
+    type: object
+    extends: BaseResponse
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        user_count:
+          type: integer
+        manager_count:
+          type: integer
+        pak_count:
+          type: integer
+        collection_count:
+          type: integer
+        circle_count:
+          type: integer
+        file_count:
+          type: integer
+        type:
+          type: string
+        parent:
+          type: string
+        details_url:
+          type: string
+        active_tags:
+          type: array
+          items:
+            type: string
+        active_tag_count:
+          type: integer
+        subadmingroups:
+          type: array
+    additionalProperties:
+      location: json
+  CirclesResponse:
+    type: object
+    extends: PaginatedResponse
+    properties:
+      objects:
+        type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          id:
+            type: string
+          all_circle:
+            type: boolean
+          user_count:
+            type: integer
+          pak_count:
+            type: integer
+          file_count:
+            type: integer
+          collection_count:
+            type: integer

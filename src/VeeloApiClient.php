@@ -12,27 +12,36 @@ class VeeloApiClient extends GuzzleClient
 {
 
     /**
-     *
+     * Create a new Veelo API Client.
      */
     public static function create($config = [])
     {
         $configDirectories = array(dirname(__DIR__));
-        $this->locator = new FileLocator($configDirectories);
+        $locator = new FileLocator($configDirectories);
 
-        $this->yamlLoader = new YamlLoader($this->locator);
-        $description = $this->yamlLoader->load($this->locator->locate('services.yaml'));
+        $yamlLoader = new YamlLoader($locator);
+        $description = $yamlLoader->load($locator->locate('services.yaml'));
+
+        if (isset($config['base_uri'])) {
+            $description = ['baseUrl' => $config['base_uri']] + $description;
+        }
 
         // Load the service description file.
-        $service_description = new Description(
-            ['baseUrl' => $config['base_uri']] + $description
-        );
+        $service_description = new Description($description);
+
+
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
+
+        if (isset($config['token'])) {
+            $headers['Authorization'] = "JWT {$config['token']}";
+        }
 
         // Creates the client and sets the default request headers.
         $client = new Client([
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-            ],
+            'headers' => $headers,
         ]);
 
         return new static($client, $service_description, NULL, NULL, NULL, $config);
