@@ -306,6 +306,90 @@ operations:
         type: string
         location: uri
         required: true
+  addTagToContent:
+    httpMethod: POST
+    uri: /api/manager/v2/tag-categories/{category_id}/tag/associate
+    summary: Add a tag to a piece of content.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+      obj:
+        type: object
+        location: json
+        properties:
+          id:
+            type: string
+            location: json
+            required: true
+          type:
+            type: string
+            location: json
+            required: true
+            enum:
+              - pak
+              - collection
+              - file
+      target:
+        type: object
+        location: json
+        properties:
+          category:
+            type: object
+            location: json
+            properties:
+              id:
+                type: string
+                location: json
+                required: true
+          name:
+            type: string
+            location: json
+            required: true
+  deleteTagFromContent:
+    httpMethod: DELETE
+    uri: /api/manager/v2/tag-categories/{category_id}/tag/associate
+    summary: Delete a tag from a piece of content.
+    responseModel: BaseResponse
+    parameters:
+      category_id:
+        type: string
+        location: uri
+        required: true
+      obj:
+        type: object
+        location: json
+        properties:
+          id:
+            type: string
+            location: json
+            required: true
+          type:
+            type: string
+            location: json
+            required: true
+            enum:
+              - pak
+              - collection
+              - file
+      target:
+        type: object
+        location: json
+        properties:
+          category:
+            type: object
+            location: json
+            properties:
+              id:
+                type: string
+                location: json
+                required: true
+          id:
+            type: string
+            location: json
+            required: true
 models:
   BaseResponse:
     type: object
