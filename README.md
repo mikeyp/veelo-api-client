@@ -47,7 +47,7 @@ $response = $client->uploadFile(['admingroup_id' => $admingroup_id, 'file' => fo
 To do
 -----
 
-# Finish operations for Users and Admingroups
-# Add wrapper methods to the client with type hints and documentation for each operations (this is especially helpful with some of the more complicated request bodies, such as tagging content where admingroup_id is required twice)
-# Tests
-# Change how token is handled in constructor?
+1. Finish operations for Users and Admingroups
+2. Add wrapper methods to the client with type hints and documentation for each operations (this is especially helpful with some of the more complicated request bodies, such as tagging content where admingroup_id is required twice)
+3. Tests
+4. Change how token is handled in constructor?
