@@ -348,7 +348,7 @@ operations:
             type: string
             location: json
             required: true
-  deleteTagFromContent:
+  removeTagFromContent:
     httpMethod: DELETE
     uri: /api/manager/v2/tag-categories/{category_id}/tag/associate
     summary: Delete a tag from a piece of content.
