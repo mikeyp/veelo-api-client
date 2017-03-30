@@ -3,7 +3,8 @@ Veelo API client
 
 This is a PHP library for accessing the [Veelo API](https://home.veeloapp.com/docs/).
 
-## Install
+Install
+-------
 
 Add this requirement to your `composer.json` file:
 
@@ -13,7 +14,8 @@ Add this requirement to your `composer.json` file:
 }
 ```
 
-## Usage
+Usage
+-----
 
 Example:
 
@@ -41,3 +43,11 @@ $response = $client->listCircles(['admingroup_id' => $admingroup_id]);
 $response = $client->uploadFile(['admingroup_id' => $admingroup_id, 'file' => fopen('path/to/file.pdf', 'r')]);
 
 ```
+
+To do
+-----
+
+# Finish operations for Users and Admingroups
+# Add wrapper methods to the client with type hints and documentation for each operations (this is especially helpful with some of the more complicated request bodies, such as tagging content where admingroup_id is required twice)
+# Tests
+# Change how token is handled in constructor?
