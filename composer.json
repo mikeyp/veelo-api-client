@@ -19,7 +19,7 @@
     ],
     "require": {
         "guzzlehttp/guzzle-services": "^1.1",
-        "gimler/guzzle-description-loader": "^0.0.3"
+        "gimler/guzzle-description-loader": "^0.0.2"
     },
     "autoload": {
         "psr-4": {
