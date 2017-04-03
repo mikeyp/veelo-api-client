@@ -51,6 +51,26 @@ operations:
         location: multipart
         type: any
         required: true
+  getFile:
+    httpMethod: GET
+    uri: /api/manager/v2/files/{file_id}
+    summary: Get information about a file.
+    responseModel: BaseResponse
+    parameters:
+      file_id:
+        location: uri
+        type: string
+        required: true
+  deleteFile:
+    httpMethod: DELETE
+    uri: /api/manager/v2/files/{file_id}
+    summary: Delete a file.
+    responseModel: BaseResponse
+    parameters:
+      file_id:
+        location: uri
+        type: string
+        required: true
   replaceFile:
     httpMethod: PUT
     uri: /api/manager/v2/files/{file_id}
