@@ -26,7 +26,7 @@ use \VeeloApi\VeeloApiClient;
 $client = VeeloApiClient::create();
 
 // Get an authorization token.
-$response = $client->generateToken(['identification' => 'user@example.com', 'password' => 'secret']);
+$response = $client->generateToken('user@example.com', 'password');
 echo $response['token'];
 
 
@@ -37,10 +37,10 @@ $client = VeeloApiClient::create(['token' => $token]);
 $response = $client->listAdminGroups();
 
 // List circles in an admin group.
-$response = $client->listCircles(['admingroup_id' => $admingroup_id]);
+$response = $client->listCircles($admingroup_id);
 
 // Upload a file.
-$response = $client->uploadFile(['admingroup_id' => $admingroup_id, 'file' => fopen('path/to/file.pdf', 'r')]);
+$response = $client->uploadFile($admingroup_id, fopen('path/to/file.pdf', 'r'));
 
 ```
 
